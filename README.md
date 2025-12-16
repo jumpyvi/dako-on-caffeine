@@ -1,5 +1,6 @@
-Repository for generating Homebrew tarballs for redistribution on image-based systems via an OCI image.
+> The best way to bring homebrew to your custom bootc image!
 
+Repository for generating Homebrew tarballs for redistribution on image-based systems via an OCI image.
 This includes general settings you'd want to use when using Homebrew on a `bootc` system, including a tarball and services for setting it up.
 
 ## Overview
