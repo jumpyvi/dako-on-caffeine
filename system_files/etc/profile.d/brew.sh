@@ -1,2 +1,12 @@
 #!/usr/bin/env bash
-[[ -d /home/linuxbrew/.linuxbrew && $- == *i* ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ -d /home/linuxbrew/.linuxbrew && $- == *i* ]] ; then
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar"
+  export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew"
+  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
+  export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}"
+  export PATH="${PATH}:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin"
+  if [ "$(basename $(readlink /proc/$$/exe))" == "zsh" ] ; then
+    fpath[1,0]="/home/linuxbrew/.linuxbrew/share/zsh/site-functions"
+  fi
+fi
