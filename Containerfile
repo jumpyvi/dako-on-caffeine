@@ -1,11 +1,15 @@
 FROM cgr.dev/chainguard/wolfi-base:latest AS builder
 
-RUN apk add curl git zstd posix-libc-utils uutils gnutar grep bash-binsh && \
+RUN apk add curl git zstd posix-libc-utils uutils gnutar grep bash-binsh build-base file && \
   curl --retry 3 -fsSLo "/tmp/brew-install" "https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh" && \
   touch /.dockerenv && \
-  env --ignore-environment "PATH=/usr/bin:/bin:/usr/sbin:/sbin" "HOME=/home/linuxbrew" "NONINTERACTIVE=1" /usr/bin/bash /tmp/brew-install && \
+  export HOME=/home/linuxbrew && \
+  export NONINTERACTIVE=1 && \
+  env --ignore-environment "PATH=/usr/bin:/bin:/usr/sbin:/sbin" "HOME=$HOME" "NONINTERACTIVE=$NONINTERACTIVE" /usr/bin/bash /tmp/brew-install && \
+  /home/linuxbrew/.linuxbrew/bin/brew install glow tmux && \
+  /home/linuxbrew/.linuxbrew/bin/brew cleanup --prune=all && \
   mkdir -p /out && \
-  tar --zstd -cvf "/out/homebrew.tar.zst" "/home/linuxbrew/.linuxbrew"
+  tar --zstd -cvf "/out/homebrew.tar.zst" -C / home/linuxbrew/.linuxbrew
 
 FROM scratch AS ctx
 COPY system_files /system_files
