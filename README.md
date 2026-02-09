@@ -1,17 +1,12 @@
 > The best way to bring homebrew to your custom bootc image!
 
-Repository for generating Homebrew tarballs for redistribution on image-based systems via an OCI image.
+Repository for generating Homebrew tarballs for redistribution on image-based systems.
 This includes general settings you'd want to use when using Homebrew on a `bootc` system, including a tarball and services for setting it up.
 
 ## Overview
 
-This repository builds an OCI container image that packages:
-- A pre-installed Homebrew tarball (`homebrew.tar.zst`)
-- Systemd services for automated setup, updates, and upgrades
-- Shell integration scripts (bash, fish)
-- Security limits and tmpfiles configuration
-
-The image is designed to be consumed by custom bootc-based container images.
+This repository builds Homebrew tarballs (`homebrew.tar.zst`) for different architectures.
+These tarballs are available as GitHub Action artifacts.
 ## Dependencies
 
 [See upstream Docs](https://docs.brew.sh/Homebrew-on-Linux)
